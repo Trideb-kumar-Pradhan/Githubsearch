@@ -8,7 +8,7 @@ module.exports = {
       'eslint:recommended',
       'plugin:react/recommended',
       'plugin:@typescript-eslint/recommended',
-      'prettier',
+      'prettier', // Ensure 'prettier' is listed here
     ],
     parser: '@typescript-eslint/parser',
     parserOptions: {
@@ -18,7 +18,7 @@ module.exports = {
       ecmaVersion: 12,
       sourceType: 'module',
     },
-    plugins: ['react', '@typescript-eslint', 'prettier'],
+    plugins: ['react', '@typescript-eslint', 'prettier'], // Ensure 'prettier' plugin is included
     rules: {
       'prettier/prettier': 'error',
     },
