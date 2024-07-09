@@ -1,26 +1,54 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+// import React, { useState } from 'react';
+// import { GitHubUserProvider } from './GitHubUserContext';
+// import GitHubUserForm from './GitHubUserForm';
+// import UserRepositories from './UserRepositories';
 
-function App() {
+// const App: React.FC = () => {
+//   const [username, setUsername] = useState<string | null>(null);
+
+//   return (
+//     <GitHubUserProvider>
+//       <div className="App">
+//         <h1>GitHub User Search</h1>
+//         <GitHubUserForm />
+//         {username && <UserRepositories username={username} />}
+//       </div>
+//     </GitHubUserProvider>
+//   );
+// };
+
+// export default App;
+// src/App.tsx
+import React, { useState } from 'react';
+import { GitHubUserProvider, useGitHubUser } from './GitHubUserContext';
+import UserRepositories from './UserRepositories';
+
+const App: React.FC = () => {
+  const [username, setUsername] = useState('');
+  const { fetchUserData } = useGitHubUser();
+
+  const handleFetchUser = () => {
+    fetchUserData(username);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <input
+        type="text"
+        value={username}
+        onChange={(e) => setUsername(e.target.value)}
+        placeholder="Enter GitHub username"
+      />
+      <button onClick={handleFetchUser}>Fetch User</button>
+      <UserRepositories />
     </div>
   );
-}
+};
 
-export default App;
+const WrappedApp: React.FC = () => (
+  <GitHubUserProvider>
+    <App />
+  </GitHubUserProvider>
+);
+
+export default WrappedApp;
